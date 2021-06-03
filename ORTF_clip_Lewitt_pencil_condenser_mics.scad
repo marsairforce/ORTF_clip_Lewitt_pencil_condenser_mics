@@ -6,6 +6,7 @@ mic_l=163; // total length of microphone
 mic_d=24;  // the diameter of the microphone
 capsule_depth=10; // how far in from the end of the 
 mic_color= "#5F5F5F";
+microphone_visible = false;
 
 // ORTF spec
 capsul_distance=170; // the distance between capsules
@@ -13,6 +14,7 @@ mic_angle=110;  // angle (in degrees)
 
 // plastic printing
 thick=3;    // thickness of plastic parts.
+plate_thick=5;
 cradle_length=50;
 cradle_offset=25; // distance from tip of microphone to end of cradle start
 module mic_ring() {
@@ -81,7 +83,8 @@ module clip() {
     rotate([0,0,-90-mic_angle/2])
     translate([0,mic_l/2-capsule_depth,-mic_d/2])
     rotate([90,0,0]){
-        //microphone();
+        if (microphone_visible)
+            microphone();
         mic_cradle();
     }
 
@@ -89,7 +92,8 @@ module clip() {
     rotate([0,0,90+mic_angle/2])
     translate([0,-mic_l/2+capsule_depth,mic_d/2])
     rotate([-90,0,0]) {
-        //microphone();
+        if (microphone_visible)
+            microphone();
         mic_cradle();
     }
 }
@@ -98,15 +102,15 @@ module clip() {
 union() {
     clip();
     polyhedron(points=[
-        [29,-32,-thick/2],  //0
-        [29, 32,-thick/2],  //1
-        [4, 68,-thick/2],   //2
-        [4,-68,-thick/2],   //3
+        [29,-44,-plate_thick/2],  //0
+        [29, 29,-plate_thick/2],  //1
+        [6, 62,-plate_thick/2],   //2
+        [10,-73,-plate_thick/2],   //3
 
-        [29,-32,thick/2],   //4
-        [29, 32,thick/2],   //5
-        [4, 68,thick/2],    //6
-        [4,-68,thick/2],    //7
+        [29,-29,plate_thick/2],   //4
+        [29, 44,plate_thick/2],   //5
+        [10, 73,plate_thick/2],    //6
+        [5,-63,plate_thick/2],    //7
 
         ],
         faces=[
@@ -114,7 +118,7 @@ union() {
         [7,6,5,4],
         [0,4,5,1],
         [7,4,0,3],
-        [6,7,3,2],
+        [3,2,6,7],
         [5,6,2,1]
         ]
     );
