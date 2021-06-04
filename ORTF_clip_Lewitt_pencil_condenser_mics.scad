@@ -72,54 +72,94 @@ module mic_cradle() {
 
         translate([0,0.5*mic_d,0])
         cube([mic_d+2*thick,mic_d/2, cradle_length+0.01], center=true);
-
     }
-
-
 }
 
-module clip() {
+module mic_cradle_footprint() {
+    translate([0,0,mic_l/2-cradle_length/2 - cradle_offset])
+    rotate([0,0,90]){
+
+        cylinder(h=cradle_length,r=mic_d/2+thick, center=true);
+    
+    translate([15,6,8])cube([10,10,15],center=true);
+    }
+}
+
+module bridge() {
+  ph=25;
+  pl=133.5;
+    
+  difference() {
+    translate([ph/2,0,0])cube([ph,pl,plate_thick], center=true); 
+
     translate([0,capsul_distance/2,0])
-    rotate([0,0,-90-mic_angle/2])
-    translate([0,mic_l/2-capsule_depth,-mic_d/2])
-    rotate([90,0,0]){
-        if (microphone_visible)
-            microphone();
-        mic_cradle();
-    }
+            rotate([0,0,-90-mic_angle/2])
+            translate([0,mic_l/2-capsule_depth,-mic_d/2])
+            rotate([90,0,0]){
+                mic_cradle_footprint();
+            }
 
-    translate([0,-capsul_distance/2,0])
-    rotate([0,0,90+mic_angle/2])
-    translate([0,-mic_l/2+capsule_depth,mic_d/2])
-    rotate([-90,0,0]) {
-        if (microphone_visible)
-            microphone();
-        mic_cradle();
-    }
+   translate([0,-capsul_distance/2,0])
+            rotate([0,0,90+mic_angle/2])
+            translate([0,-mic_l/2+capsule_depth,mic_d/2])
+            rotate([-90,0,0]) {
+                mic_cradle_footprint();
+            }  
+  }
 }
 
-//mic_cradle();
-union() {
-    clip();
-    polyhedron(points=[
-        [29,-44,-plate_thick/2],  //0
-        [29, 29,-plate_thick/2],  //1
-        [6, 62,-plate_thick/2],   //2
-        [10,-73,-plate_thick/2],   //3
+module clip(){
+    rotate([0,-90,0]) {
+    difference() {
+        union() {
+            translate([0,capsul_distance/2,0])
+            rotate([0,0,-90-mic_angle/2])
+            translate([0,mic_l/2-capsule_depth,-mic_d/2])
+            rotate([90,0,0]){
+                mic_cradle();
+            }
 
-        [29,-29,plate_thick/2],   //4
-        [29, 44,plate_thick/2],   //5
-        [10, 73,plate_thick/2],    //6
-        [5,-63,plate_thick/2],    //7
+            translate([0,-capsul_distance/2,0])
+            rotate([0,0,90+mic_angle/2])
+            translate([0,-mic_l/2+capsule_depth,mic_d/2])
+            rotate([-90,0,0]) {
+                mic_cradle();
+            }
+           
+            bridge(); 
+        }
 
-        ],
-        faces=[
-        [0,1,2,3],
-        [7,6,5,4],
-        [0,4,5,1],
-        [7,4,0,3],
-        [3,2,6,7],
-        [5,6,2,1]
-        ]
-    );
+    translate([-2.5,0,0])cube([5,140,50], center=true);
+    }
+    
+
 }
+    
+}
+
+module microphones(){
+    rotate([0,-90,0])
+        union() {
+            translate([0,capsul_distance/2,0])
+            rotate([0,0,-90-mic_angle/2])
+            translate([0,mic_l/2-capsule_depth,-mic_d/2])
+            rotate([90,0,0]){
+                if (microphone_visible)
+                    microphone();
+            }
+
+            translate([0,-capsul_distance/2,0])
+            rotate([0,0,90+mic_angle/2])
+            translate([0,-mic_l/2+capsule_depth,mic_d/2])
+            rotate([-90,0,0]) {
+                if (microphone_visible)
+                    microphone();
+            }
+        }
+}
+
+
+
+clip();
+microphones();
+
