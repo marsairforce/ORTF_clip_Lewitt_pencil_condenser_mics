@@ -14,9 +14,11 @@ mic_angle=110;  // angle (in degrees)
 
 // plastic printing
 thick=3;    // thickness of plastic parts.
-plate_thick=5;
-cradle_length=50;
+plate_thick=8;
+cradle_length=90;
 cradle_offset=25; // distance from tip of microphone to end of cradle start
+
+ph=30; // height of the clip on z axis
 module mic_ring() {
     difference() {
         color(mic_color)
@@ -65,6 +67,7 @@ module microphone() {
 module mic_cradle() {
     translate([0,0,mic_l/2-cradle_length/2 - cradle_offset])
     rotate([0,0,90])
+    {
     difference() {
         cylinder(h=cradle_length,r=mic_d/2+thick, center=true);
 
@@ -73,38 +76,60 @@ module mic_cradle() {
         translate([0,0.5*mic_d,0])
         cube([mic_d+2*thick,mic_d/2, cradle_length+0.01], center=true);
     }
+    }
 }
 
 module mic_cradle_footprint() {
-    translate([0,0,mic_l/2-cradle_length/2 - cradle_offset])
+    translate([0,0,mic_l/2-cradle_length/2+25 - cradle_offset])
     rotate([0,0,90]){
 
         cylinder(h=cradle_length,r=mic_d/2+thick, center=true);
     
-    translate([15,6,8])cube([10,10,15],center=true);
+    translate([15,18.5,8])cube([16,25,60],center=true);
     }
 }
 
 module bridge() {
-  ph=25;
-  pl=133.5;
+  
+  pl=170;
     
   difference() {
-    translate([ph/2,0,0])cube([ph,pl,plate_thick], center=true); 
-
-    translate([0,capsul_distance/2,0])
+    union() {
+        translate([ph/2,0,0])cube([ph,pl,plate_thick], center=true); 
+    }
+   
+     
+    translate([0,capsul_distance/2,0]) {
             rotate([0,0,-90-mic_angle/2])
             translate([0,mic_l/2-capsule_depth,-mic_d/2])
             rotate([90,0,0]){
-                mic_cradle_footprint();
+                union() {
+                    mic_cradle_footprint();
+                }
             }
-
-   translate([0,-capsul_distance/2,0])
+ 
+            }
+   translate([0,-capsul_distance/2,0]) {
+       
             rotate([0,0,90+mic_angle/2])
             translate([0,-mic_l/2+capsule_depth,mic_d/2])
             rotate([-90,0,0]) {
                 mic_cradle_footprint();
             }  
+        }
+
+  // mounting hole
+  translate([ph/2,0,0])cylinder(r=2.5, h=10, center=true);
+  }
+  
+  rm=14.87;
+  
+  difference() {
+  translate([ph/2,0,7+plate_thick/2])cylinder(r=24
+      /2, h=14, center=true);
+  
+  
+  translate([ph/2,0,7+plate_thick/2])cylinder(r=rm/2, h=14+0.01, center=true);
   }
 }
 
@@ -114,14 +139,15 @@ module clip(){
         union() {
             translate([0,capsul_distance/2,0])
             rotate([0,0,-90-mic_angle/2])
-            translate([0,mic_l/2-capsule_depth,-mic_d/2])
+            translate([0,mic_l/2-capsule_depth-23.5,-mic_d/2])
             rotate([90,0,0]){
                 mic_cradle();
             }
 
+            
             translate([0,-capsul_distance/2,0])
             rotate([0,0,90+mic_angle/2])
-            translate([0,-mic_l/2+capsule_depth,mic_d/2])
+            translate([0,-mic_l/2+capsule_depth+23.5,mic_d/2])
             rotate([-90,0,0]) {
                 mic_cradle();
             }
@@ -129,9 +155,21 @@ module clip(){
             bridge(); 
         }
 
-    translate([-2.5,0,0])cube([5,140,50], center=true);
-    }
+    // trim edge off bottom
+    translate([-9,0,0])cube([18,195,60], center=true);
+        
+    // trim edge off top
+    bt=25;
+    translate([bt/2+ph,0,0])cube([bt,140,55], center=true);
     
+    // trim off bottom points of clip 
+    translate([0,capsul_distance/2,0])
+    translate([0,6,0])cube([20,12,60], center=true);    
+
+    translate([0,-capsul_distance/2,0])
+    translate([0,-6,0])cube([20,12,60], center=true);    
+
+    }
 
 }
     
@@ -160,6 +198,8 @@ module microphones(){
 
 
 
+//mic_cradle();
+//bridge();
 clip();
 microphones();
 
