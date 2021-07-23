@@ -44,12 +44,11 @@ Feedback:
 * The resin is sort of brittle and less forgiving (to dropping) than FDM print would be.
 * The sharp edges are sort of hard to get nice looking. I should update the flat faces on the edge of the clip to be a bit rounded.
 * I should add a fillett on the inside of the beam where it attaches to the clip part, to provide additional durability.
-*Adding a round post that can be threaded with the standard wide microphone screw would be neat.
+* Adding a round post that can be threaded with the standard wide microphone screw would be neat.
 
 ## V1.1 (June 17, 2021)
 
 I ended up dropping the V1.0 model when attaching it to a mic stand. It shattered into several pieces.
-
 
 I guess resin printing is sort of brittle like that. And that I need to make the bits a little more thicker to not be so delicate.
 
