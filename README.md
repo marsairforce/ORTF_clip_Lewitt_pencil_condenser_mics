@@ -51,6 +51,19 @@ This edition
 * Make the clips extend down all the way to the bottom. So it is easier to print this.
 * Experiment with adding a cylinder in the middle for mounting onto a microphone stand.
 
+(Update: July 19, 2021)
+
+I got this design printed.
+
+![v1.1_printed](1.1_printed.jpg)
+
+It feels nice and springy, but not brittle too. Which is important, as I tend to drop things a lot.
+
+The spot for the threads works well too.
+![1.1. threads](1.1_threads.jpg)
+
+I used a lighter to heat up the metal end of a mic stand and then turned that into the plastic. It took a couple attempts as it kept cooling down on me. But this clip now reliably threads onto a regular microphone stand.
+
 ## License
 
 These cad files are licensed using MIT license.
