@@ -1,12 +1,22 @@
 # An ORTF clip for Lewitt style microphones
 
-A clip for [The ORTF stereo technique] with Lewitt style condenser microphones.
+A clip for [The ORTF stereo technique](https://en.wikipedia.org/wiki/ORTF_stereo_technique) with Lewitt style condenser microphones.
 
-This should work for their 24.5 mm diameter pencil condenser microphones
+![fig1.1](fig1.1.png)
+The version 1.1. design.
+
+
+This should work for Lewitt style 24.5 mm diameter pencil condenser microphones:
 
 * LCT 040
 * LCT 140
 * LCT 340
+
+Of course the OpenScad model is kind of parameteric, so it should be adjustable for different diameter microphones as well.
+
+> I am not very good at OpenSCAD. I just sort of hack my way through it and learn things as I need to. I mostly use it to design 3D electronic component models for KiCAD footprints.
+>
+> If you have better ideas for how to improve this I am open to suggestions.
 
 ## V1.0 (June 3, 2021)
 
@@ -39,6 +49,7 @@ Feedback:
 ## V1.1 (June 17, 2021)
 
 I ended up dropping the V1.0 model when attaching it to a mic stand. It shattered into several pieces.
+
 
 I guess resin printing is sort of brittle like that. And that I need to make the bits a little more thicker to not be so delicate.
 
