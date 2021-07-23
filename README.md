@@ -68,5 +68,5 @@ I used a lighter to heat up the metal end of a mic stand and then turned that in
 
 These cad files are licensed using MIT license.
 
-I designed these to solve my specific problem, of wanting I want these to be useful
+I designed these to solve my specific problem, of wanting a way to set up a pair of mics to capture a live musical performance in a room. I only have hope that this may be useful to someone else who has similar use cases.
 
